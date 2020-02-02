@@ -9,7 +9,7 @@ docker build . -t python_dev:0.0.1
 ```
 ### Run control plane
 ```
-docker run -it --rm -v ${PWD}:app python_dev:0.0.1
+docker run -it --rm -v ${PWD}:/app python_dev:0.0.1
 ```
 
 ### Delete control plane
