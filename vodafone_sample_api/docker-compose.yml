@@ -15,3 +15,16 @@ services:
       - ./db/:/db/
     ports:
       - "5000:5000"
+  db:
+   image: mysql:5.7
+   volumes:
+     - db_data:/var/lib/mysql
+   restart: always
+   environment:
+     MYSQL_ROOT_PASSWORD: '7CbAg`8+FDtt`{>;Hu'
+     MYSQL_DATABASE: vodafone
+     MYSQL_USER: vodafone
+     MYSQL_PASSWORD: 'C#L8LE*6wl=y=ERPF'
+
+volumes:
+  db_data: {}
