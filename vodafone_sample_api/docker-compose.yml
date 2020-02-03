@@ -9,7 +9,7 @@ services:
     env_file:
       - ./.flaskenv
     environment:
-      - DATABASE_URI=sqlite:////db/vodafone_api.db
+      - DATABASE_URI=mysql+pymysql://vodafone:C#L8LE*6wl=y=ERPF@db:3306/vodafone
     volumes:
       - ./vodafone_api:/code/vodafone_api
       - ./db/:/db/
