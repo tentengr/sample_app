@@ -12,6 +12,7 @@ services:
       - DATABASE_URI=mysql+pymysql://vodafone:C#L8LE*6wl=y=ERPF@db:3306/vodafone
     volumes:
       - ./vodafone_api:/code/vodafone_api
+      - ./migrations:/code/migrations
       - ./db/:/db/
     ports:
       - "5000:5000"
