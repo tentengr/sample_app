@@ -1,20 +1,19 @@
 from flask import request
 from flask_restful import Resource
-# from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required
 
-# from vodafone_api.models import User
-# from vodafone_api.extensions import ma, db
+from vodafone_api.models import Datetime
+from vodafone_api.extensions import ma, db
 from vodafone_api.commons.pagination import paginate
 
 
-# class DatetimeSchema(ma.ModelSchema):
+class DatetimeSchema(ma.ModelSchema):
 
-#     id = ma.Int(dump_only=True)
-#     datetime = ma.String(load_only=True, required=True)
+    id = ma.Int(dump_only=True)
 
-#     # class Meta:
-#     #     model = User
-#     #     sqla_session = db.session
+    class Meta:
+        model = Datetime
+        sql_session = db.session
 
 
 class DatetimeResource(Resource):
@@ -36,7 +35,7 @@ class DatetimeResource(Resource):
               schema:
                 type: object
                 properties:
-                  user: UserSchema
+                  user: DatetimeSchema
         404:
           description: datetime does not exists
     put:
@@ -51,7 +50,7 @@ class DatetimeResource(Resource):
         content:
           application/json:
             schema:
-              UserSchema
+              DatetimeSchema
       responses:
         200:
           content:
@@ -62,7 +61,7 @@ class DatetimeResource(Resource):
                   msg:
                     type: string
                     example: datetime updated
-                  user: UserSchema
+                  user: DatetimeSchema
         404:
           description: datetime does not exists
     delete:
@@ -86,15 +85,78 @@ class DatetimeResource(Resource):
         404:
           description: datetime does not exists
     """
-    def get(self):
-    	return {"datetime": "get verb"}
+    def get(self, datetime_id):
+        schema = DatetimeSchema()
+        datetime = Datetime.query.get_or_404(datetime_id)
+        return {"datetime": schema.dump(datetime)}
 
-    def put(self):
-    	return {"datetime": "post verb"}
+    def put(self, datetime_id):
+        schema = DatetimeSchema(partial=True)
+        datetime = Datetime.query.get_or_404(datetime_id)
+        datetime = schema.load(request.json, instance=datetime)
 
-    def delete(self):
-    	return {"datetime": "delete verb"}
+        db.session.commit()
+
+        return {"msg": "datetime updated", "datetime": schema.dump(datetime)}
+
+    def delete(self, datetime_id):
+        datetime = Datetime.query.get_or_404(datetime_id)
+        db.session.delete(datetime)
+        db.session.commit()
+
+        return {"msg": "datetime deleted"}
     	
 
 class DatetimeList(Resource):
-	pass
+    """Creation and get_all
+
+    ---
+    get:
+      tags:
+        - api
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/PaginatedResult'
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/DatetimeSchema'
+    post:
+      tags:
+        - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              DatetimeSchema
+      responses:
+        201:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: datetime created
+                  user: DatetimeSchema
+    """
+    def get(self):
+        schema = DatetimeSchema(many=True)
+        query = Datetime.query
+        return paginate(query, schema)
+
+    def post(self):
+        schema = DatetimeSchema()
+        datetime = schema.load(request.json)
+
+        db.session.add(datetime)
+        db.session.commit()
+
+        return {"msg": "datetime created", "datetime": schema.dump(datetime)}, 201
