@@ -7,7 +7,7 @@ class Datetime(db.Model):
     comment = db.Column(db.VARCHAR(1000))
 
     def __init__(self, **kwargs):
-        super(USer, self).__init__(**kwargs)
+        super(Datetime, self).__init__(**kwargs)
 
     def __repr__(self):
         return "<Datatime %s>" % self.datetime
