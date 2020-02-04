@@ -25,3 +25,9 @@ tox:
 
 lint:
 	docker-compose run web tox -e lint
+
+restart-web:
+	docker-compose restart web
+
+restart-db:
+	docker-compose restart db
