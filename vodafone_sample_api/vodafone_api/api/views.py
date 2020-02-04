@@ -6,6 +6,7 @@ from vodafone_api.extensions import apispec
 from vodafone_api.api.resources import UserResource, UserList
 from vodafone_api.api.resources import DatetimeResource, DatetimeList
 from vodafone_api.api.resources.user import UserSchema
+from vodafone_api.api.resources.datetime import DatetimeSchema
 
 
 blueprint = Blueprint("api", __name__, url_prefix="/api/v1")
@@ -23,6 +24,8 @@ def register_views():
     apispec.spec.components.schema("UserSchema", schema=UserSchema)
     apispec.spec.path(view=UserResource, app=current_app)
     apispec.spec.path(view=UserList, app=current_app)
+
+    apispec.spec.components.schema("DatetimeSchema", schema=DatetimeSchema)
     apispec.spec.path(view=DatetimeResource, app=current_app)
     apispec.spec.path(view=DatetimeList, app=current_app)
 
