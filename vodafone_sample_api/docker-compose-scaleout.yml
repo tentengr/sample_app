@@ -15,7 +15,7 @@ services:
   #   environment:
   #     - DATABASE_URI=mysql+pymysql://{db_username}:{db_password}}:{db_port}/{db_name}
 
-  web01:
+  web:
     image: vodafone_api
     build: .
     command: gunicorn -b 0.0.0.0:5000 vodafone_api.wsgi:app
@@ -26,7 +26,7 @@ services:
     ports:
       - "5001:5000"
 
-  web02:
+  web2:
     image: vodafone_api
     build: .
     command: gunicorn -b 0.0.0.0:5000 vodafone_api.wsgi:app
