@@ -1,0 +1,9 @@
+default_context:
+    project_name: "vodafone_sample_api"
+    app_name: "vodafone_api"
+    python_version: "3.7"
+    admin_user_username: "admin"
+    admin_user_email: "gregory.markopoulos@gmail.com"
+    admin_user_password: "Ky7]gzc~Udh~]LcD4U"
+    use_celery: "no"
+    wsgi_server: "gunicorn"

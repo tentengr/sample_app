@@ -1,0 +1,31 @@
+# WARNING: this file is not suitable for production, please use with caution
+version: '3'
+
+services:
+  web:
+    image: vodafone_api
+    build: .
+    command: gunicorn -b 0.0.0.0:5000 vodafone_api.wsgi:app
+    env_file:
+      - ./.flaskenv
+    environment:
+      - DATABASE_URI=mysql+pymysql://vodafone:C#L8LE*6wl=y=ERPF@db:3306/vodafone
+    volumes:
+      - ./vodafone_api:/code/vodafone_api
+      - ./migrations:/code/migrations
+      - ./db/:/db/
+    ports:
+      - "5000:5000"
+  db:
+   image: mysql:5.7
+   volumes:
+     - db_data:/var/lib/mysql
+   restart: always
+   environment:
+     MYSQL_ROOT_PASSWORD: '7CbAg`8+FDtt`{>;Hu'
+     MYSQL_DATABASE: vodafone
+     MYSQL_USER: vodafone
+     MYSQL_PASSWORD: 'C#L8LE*6wl=y=ERPF'
+
+volumes:
+  db_data: {}

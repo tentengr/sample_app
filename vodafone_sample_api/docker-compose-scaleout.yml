@@ -1,0 +1,58 @@
+# WARNING: this file is not suitable for production, please use with caution
+version: '3'
+
+services:
+  # Unfortunatelly replicas can be used only in docker swarm mode.
+  # For our needs we just add a second web service
+  # web:
+  #   image: vodafone_api
+  #   deploy:
+  #     replicas: 2
+  #   build: .
+  #   command: gunicorn -b 0.0.0.0:5000 vodafone_api.wsgi:app
+  #   env_file:
+  #     - ./.flaskenv
+  #   environment:
+  #     - DATABASE_URI=mysql+pymysql://{db_username}:{db_password}}:{db_port}/{db_name}
+
+  web:
+    image: vodafone_api
+    build: .
+    command: gunicorn -b 0.0.0.0:5000 vodafone_api.wsgi:app
+    env_file:
+      - ./.flaskenv
+    environment:
+      - DATABASE_URI=mysql+pymysql://vodafone:C#L8LE*6wl=y=ERPF@db:3306/vodafone
+    ports:
+      - "5001:5000"
+
+  web2:
+    image: vodafone_api
+    build: .
+    command: gunicorn -b 0.0.0.0:5000 vodafone_api.wsgi:app
+    env_file:
+      - ./.flaskenv
+    environment:
+      - DATABASE_URI=mysql+pymysql://vodafone:C#L8LE*6wl=y=ERPF@db:3306/vodafone
+    ports:
+      - "5002:5000"
+
+  loadbalancer:
+    image: vodafone_api_load_balancer
+    build: ../load_balancer/.
+    ports:
+      - "80:80"
+
+  db:
+   image: mysql:5.7
+   volumes:
+     - db_data:/var/lib/mysql
+   restart: always
+   environment:
+     MYSQL_ROOT_PASSWORD: '7CbAg`8+FDtt`{>;Hu'
+     MYSQL_DATABASE: vodafone
+     MYSQL_USER: vodafone
+     MYSQL_PASSWORD: 'C#L8LE*6wl=y=ERPF'
+
+volumes:
+  db_data: {}
