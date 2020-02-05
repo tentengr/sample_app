@@ -85,6 +85,9 @@ class DatetimeResource(Resource):
         404:
           description: datetime does not exists
     """
+
+    method_decorators = [jwt_required]
+
     def get(self, datetime_id):
         schema = DatetimeSchema()
         datetime = Datetime.query.get_or_404(datetime_id)
@@ -147,6 +150,9 @@ class DatetimeList(Resource):
                     example: datetime created
                   user: DatetimeSchema
     """
+
+    method_decorators = [jwt_required]
+
     def get(self):
         schema = DatetimeSchema(many=True)
         query = Datetime.query
