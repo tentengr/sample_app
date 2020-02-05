@@ -25,6 +25,7 @@ services:
       - DATABASE_URI=mysql+pymysql://vodafone:C#L8LE*6wl=y=ERPF@db:3306/vodafone
     ports:
       - "5001:5000"
+
   web02:
     image: vodafone_api
     build: .
@@ -35,6 +36,13 @@ services:
       - DATABASE_URI=mysql+pymysql://vodafone:C#L8LE*6wl=y=ERPF@db:3306/vodafone
     ports:
       - "5002:5000"
+
+  loadbalancer:
+    image: vodafone_api_load_balancer
+    build: ../load_balancer/.
+    ports:
+      - "80:80"
+
   db:
    image: mysql:5.7
    volumes:
