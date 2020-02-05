@@ -1,4 +1,4 @@
-.PHONY: init init-migration build run db-migrate test tox
+.PHONY: init init-migration build run db-migrate test tox restart-web restart-db
 
 init:  build run
 	docker-compose exec web vodafone_api db upgrade
