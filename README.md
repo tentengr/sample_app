@@ -76,3 +76,9 @@ or
 [Swagger UI for production builds](http://0.0.0.0:80/swagger-ui)
 
 Note: Depending on how you run Vodafone API, one of the abose links will be functional each time.
+
+### Testing the API
+To unit test the API, run
+```
+make test
+```
