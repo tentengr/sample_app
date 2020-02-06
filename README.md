@@ -85,7 +85,7 @@ make test
 
 ### Sample use case
 #### Authenticate
-In order to use any of the API calls, you first need to authenticate and retrive a session token.
+In order to use any of the API calls, you first need to authenticate via the `/auth/login` endpoint and retrive a session token.
 Sample admin user:
 ```
 username: admin
