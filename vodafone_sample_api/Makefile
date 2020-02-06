@@ -17,6 +17,10 @@ db-migrate:
 db-upgrade:
 	docker-compose exec web vodafone_api db upgrade
 
+sample-data:
+	docker-compose exec web vodafone_api init
+	@echo "Init done, containers running"
+
 test:
 	docker-compose run -v $(PWD)/tests:/code/tests:ro web tox -e test
 
