@@ -69,6 +69,11 @@ make db-upgrade
 ```
 Note: Before running db migrations, allow a few momment for the `make run` to bring the MySQL database up.
 
+#### Import sample data
+```
+make sample-data
+```
+
 #### Visit swagger
 Swagger and a Web based UI client that can be used to consume the API. Get swagger's ui by pointing your browser to:
 [Swagger UI for development builds](http://0.0.0.0:5000/swagger-ui)
