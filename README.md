@@ -82,3 +82,14 @@ To unit test the API, run
 ```
 make test
 ```
+
+### Sample use case
+#### Authenticate
+In order to use any of the API calls, you first need to authenticate and retrive a session token.
+Sample admin user:
+```
+username: admin
+password: Ky7]gzc~Udh~]LcD4U
+```
+
+Then you need to pass the authentication token on each API request.
