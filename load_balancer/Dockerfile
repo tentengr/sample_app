@@ -8,10 +8,6 @@
 # note that celery will require a running broker and result backend
 FROM nginx:1.17.8-alpine
 
-RUN mkdir /code
-WORKDIR /code
-
 COPY default.conf /etc/nginx/conf.d/
-
 
 EXPOSE 80

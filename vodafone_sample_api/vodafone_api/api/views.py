@@ -19,6 +19,7 @@ api.add_resource(UserList, "/users")
 api.add_resource(DatetimeResource, "/datetime/<int:datetime_id>")
 api.add_resource(DatetimeList, "/datetime")
 
+
 @blueprint.before_app_first_request
 def register_views():
     apispec.spec.components.schema("UserSchema", schema=UserSchema)
