@@ -108,7 +108,7 @@ class DatetimeResource(Resource):
         db.session.commit()
 
         return {"msg": "datetime deleted"}
-    	
+
 
 class DatetimeList(Resource):
     """Creation and get_all
